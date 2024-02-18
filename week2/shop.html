@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>SCC | Shopping Mall</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Jua', sans-serif;
+        }
+
+        .item-img {
+            width: 500px;
+            height: 300px;
+
+            background-image: url("https://t1.daumcdn.net/liveboard/nts/5bcccfbd33da4865817b9c606b6b852e.JPG");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .price {
+            font-size: 20px;
+        }
+
+        .item-desc {
+            width: 500px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .item-order {
+            width: 500px;
+        }
+
+        .btn-order {
+            margin: auto;
+            width: 100px;
+
+            display: block;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+
+$(document).ready(function(){
+	alert('Finished loading!')
+
+    // call the api data 
+    $.ajax({
+        type: "GET",
+        url: "https://api.manana.kr/exchange/rate.json?base=KRW&code=KRW,USD",
+        data: {},
+        success: function (response) {
+                let usdCurrent = response[0].rate;
+                let krwCurrent = response[1].rate;
+
+                    
+                $('#USDCurrent').text(usdCurrent);
+                $('#krwCurrnet').text(krwCurrent)
+
+                // console.log(`usd ${usdCurrent} = ${krwCurrent} krw`) ;
+
+        }
+      })
+
+    
+
+ // jQuery function to check if input and select are empty
+ $.fn.checkIfEmpty = function () {
+            let isEmpty = false;
+
+            this.each(function () {
+                let value = $(this).val().trim();
+
+                if (value === "") {
+                    isEmpty = true;
+                    return false; // Exit the loop early if any field is empty
+                }
+            });
+
+            return isEmpty;
+        };
+    });
+
+        // Function to handle the order button click
+        function Order() {
+            // Check if input and select are empty
+            let isEmpty = $(".input-check").checkIfEmpty();
+
+            if (isEmpty) {
+                alert("Please fill in all fields.");
+            } else {
+                alert('Order completed!');
+            }
+        }
+
+
+        
+
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="item-img"></div>
+    <div class="item-desc">
+        <h1>Sparta Candles <span class="price">Price: $3 each</span></h1>
+        <p>These candles actually have special power!</p>
+    </div>
+    <h3>Exchange Rate : <span id="USDCurrent">1</span> USD = <span id="krwCurrnet">00</span> KRW</h3>
+    <div class="item-order">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Your name</span>
+            </div>
+            <input type="text" class="form-control input-check" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
+            </div>
+            <select class="custom-select input-check" id="inputGroupSelect01">
+                <option selected>-- Please select quantity --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Address</span>
+            </div>
+            <input type="text" class="form-control input-check" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Phone number</span>
+            </div>
+            <input type="text" class="form-control input-check" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="button" onclick="Order()" class="btn btn-primary btn-order">Order</button>
+    </div>
+</div>
+</body>
+
+</html>
